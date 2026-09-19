@@ -1,0 +1,6 @@
+{
+    "terminal.integrated.stickyScroll.enabled": false,
+    "verilog.linting.linter": "slang",
+    "editor.tabSize": 2,
+    "editor.detectIndentation": false
+}
