@@ -18,7 +18,7 @@ module one_bit_full_adder_BM (
 
   // this is the precursor to my PTSD.
   assign S = (A ^ B ^ Cin);
-  assign Cout = (A & B) | (B & Cin) | (B & A);
+  assign Cout = (A & B) | (B & Cin) | (Cin & A);
 
 endmodule
 
@@ -40,20 +40,21 @@ module one_bit_full_adder_SM (
 
   and c1(a_out1, Cin, A);
   and c2(a_out2, Cin, B);
-  and c3(a_out1, A, B);
+  and c3(a_out3, A, B);
   or c4(Cout, a_out1, a_out2, a_out3);
 
 endmodule
 
 // 
 // P 1C, and P 1D
+// Ripple Carry Adder/Subtractor
 // 
 module four_bit_RCA_RCS (
-    A, B, Cin, S, Cout
+    A, B, Cin, S, Cout, Sub
 );
   // yes, we are 4 bits wide!
   input [3:0] A,B;
-  input Cin;
+  input Cin, Sub;
   output[3:0] S;
   output Cout; 
 
@@ -61,9 +62,9 @@ module four_bit_RCA_RCS (
   wire cout1, cout2, cout3;
 
   // then 4 different instantiations...
-  one_bit_full_adder_BM fa0(.A(A[0]), .B(B[0]), .Cin(Cin), .S(S[0]), .Cout(cout1));
-  one_bit_full_adder_BM fa1(.A(A[1]), .B(B[1]), .Cin(cout1), .S(S[1]), .Cout(cout2));
-  one_bit_full_adder_BM fa2(.A(A[2]), .B(B[2]), .Cin(cout2), .S(S[2]), .Cout(cout3));
-  one_bit_full_adder_BM fa3(.A(A[3]), .B(B[3]), .Cin(cout3), .S(S[3]), .Cout(Cout));
+  one_bit_full_adder_BM fa0(.A(A[0]), .B(Sub ? ~B[0] : B[0]), .Cin(Cin|Sub), .S(S[0]), .Cout(cout1));
+  one_bit_full_adder_BM fa1(.A(A[1]), .B(Sub ? ~B[1] : B[1]), .Cin(cout1), .S(S[1]), .Cout(cout2));
+  one_bit_full_adder_BM fa2(.A(A[2]), .B(Sub ? ~B[2] : B[2]), .Cin(cout2), .S(S[2]), .Cout(cout3));
+  one_bit_full_adder_BM fa3(.A(A[3]), .B(Sub ? ~B[3] : B[3]), .Cin(cout3), .S(S[3]), .Cout(Cout));
 
 endmodule 
