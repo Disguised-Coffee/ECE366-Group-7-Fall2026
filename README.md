@@ -1,4 +1,4 @@
-# ECE366-brainfuh-verilog-projects
+# ECE366-Group-7-Fall2026
 
 | Project | Name | is Done? |
 | :---     | :---:    | ---:     |
