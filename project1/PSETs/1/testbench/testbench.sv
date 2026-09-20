@@ -3,21 +3,15 @@
 // These are weird.
 module fa_RCS_TB;
 
-  reg [3:0] valA, valB;
+  reg [3:0] valA, valB;  
+  reg Cin, Sub;
 
   // OUTPUTS CANNOT BE REGISTERS!!!
   wire [3:0] sumO;
-
-  reg Cin, Sub;
-
   wire Cout;
 
-  // FA 
+  // One FA for all tests. Like one object for all test cases.
   four_bit_RCA_RCS FA(.A(valA), .B(valB), .Cin(Cin), .S(sumO), .Sub(Sub), .Cout(Cout));
-
-  // task reset()
-  // endtask
-
   
   task unsigned_FA_Test(input [3:0] in1, input [3:0] in2, input subtract);
     begin
@@ -27,7 +21,7 @@ module fa_RCS_TB;
       Cin = 0;
 
       // allow time for signal propagation...
-      #10;
+      #2;
 
       if (subtract == 0) begin
         if(sumO == in1 + in2)
@@ -52,7 +46,7 @@ module fa_RCS_TB;
       Sub = subtract;
 
       // allow time for signal propagation...
-      #10;
+      #2;
 
       if (subtract == 0) begin
         if($signed(sumO) == in1 + in2)
@@ -69,13 +63,15 @@ module fa_RCS_TB;
   endtask
 
   initial begin
+    $dumpfile("dump.vcd"); $dumpvars;
+
     valA <= 4'sd2;
     valB <= 4'sd4;
     Cin <= 0;
     Sub <= 0;
     
 
-    #10
+    #2
     
     // unsigned adds
     $display("----------------------\nCase One: Unsigned Addition\n");
