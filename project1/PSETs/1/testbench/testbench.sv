@@ -31,14 +31,14 @@ module fa_RCS_TB;
 
       if (subtract == 0) begin
         if(sumO == in1 + in2)
-          $display("[PASS] Adding %d + %d = %d", in1, in2, sumO);
+          $display("\t[PASS] Adding %d + %d = %d", in1, in2, sumO);
         else
-          $display("[FAIL] Adding %d + %d = %d", in1, in2, sumO);
+          $display("\t[FAIL] Adding %d + %d = %d", in1, in2, sumO);
       end else begin;
         if(sumO == in1 - in2)
-          $display("[PASS] Subtracting %d - %d = %d", in1, in2, sumO);
+          $display("\t[PASS] Subtracting %d - %d = %d", in1, in2, sumO);
         else
-          $display("[FAIL] Subtracting %d - %d = %d", in1, in2, sumO);
+          $display("\t[FAIL] Subtracting %d - %d = %d", in1, in2, sumO);
       end
     end
   endtask
@@ -56,17 +56,15 @@ module fa_RCS_TB;
 
       if (subtract == 0) begin
         if($signed(sumO) == in1 + in2)
-          $display("[PASS] Signed Adding %d + %d = %d", in1, in2, $signed(sumO));
+          $display("\t[PASS] Signed Adding %d + %d = %d", in1, in2, $signed(sumO));
         else
-          $display("[FAIL] Signed Adding %d + %d = %d", in1, in2, $signed(sumO));
+          $display("\t[FAIL] Signed Adding %d + %d = %d", in1, in2, $signed(sumO));
       end else begin
         if(sumO == in1 - in2)
-          $display("[PASS] Signed Subtracting %d - %d = %d", in1, in2, $signed(sumO));
+          $display("\t[PASS] Signed Subtracting %d - %d = %d", in1, in2, $signed(sumO));
         else
-          $display("[FAIL] Signed Subtracting %d - %d = %d", in1, in2, $signed(sumO));
+          $display("\t[FAIL] Signed Subtracting %d - %d = %d", in1, in2, $signed(sumO));
       end
-
-      $display("Carry out: %b", Cout);
     end
   endtask
 
@@ -100,14 +98,14 @@ module fa_RCS_TB;
 
     // case with produced carry-out (ie: overflow)
     $display("----------------------\nCase Five: Propagated carry-out\n");
-    $display("Case with NO carry-out");
+    $display(">>> Case with NO carry-out");
     unsigned_FA_Test(1, 1 , 0);
-    $display("Carry out: %b", Cout);
+    $display("\tCarry out: %b", Cout);
     
     
-    $display("Case with carry-out");
+    $display(">>> Case with carry-out");
     unsigned_FA_Test(15, 2 , 0);
-    $display("Carry out: %b", Cout);
+    $display("\tCarry out: %b", Cout);
   end
 
 endmodule
