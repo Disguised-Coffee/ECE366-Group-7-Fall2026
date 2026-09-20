@@ -101,7 +101,15 @@ module fa_RCS_TB;
     
     $display(">>> Case with carry-out");
     unsigned_FA_Test(15, 2 , 0);
+    
+    
     $display("\tCarry out: %b", Cout);
+    
+    // last waveform doesn't appear, so we need to reset the registers
+    valA = 0;
+    valB = 0;
+    $finish;
+    
   end
 
 endmodule
