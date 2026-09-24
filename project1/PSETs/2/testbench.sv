@@ -9,7 +9,8 @@ module CLA_test_bench;
 CLA dut (.A(A), .B(B), .Cin(Cin), .S(S), .Cout(Cout));
 
 initial begin
-//Test 1
+  $dumpfile("dump.vcd"); $dumpvars;
+  //Test 1
 	A = 32'h00000001;
 	B = 32'h00001000;
 	Cin = 0;
