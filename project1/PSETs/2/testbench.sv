@@ -15,21 +15,21 @@ initial begin
 	B = 32'h00001000;
 	Cin = 0;
 	#10;
-	$display("A=%h B=%h Cin=%b --> S=%h Cout=%b", A ,B, Cin, S, Cout);
+	$display("A=%d B=%d Cin=%b --> S=%d Cout=%b", A ,B, Cin, S, Cout);
 
 //Test 2
 	A = 32'h00000001;
 	B = 32'h0000FFFF;
 	Cin = 0;
 	#10;
-	$display("A=%h B=%h Cin=%b --> S=%h Cout=%b", A ,B, Cin, S, Cout);
+	$display("A=%d B=%d Cin=%b --> S=%d Cout=%b", A ,B, Cin, S, Cout);
 
 //Test 3
 	A = 32'h0000F0F0F;
 	B = 32'h000001010;
 	Cin = 1;
 	#10;
-	$display("A=%h B=%h Cin=%b --> S=%h Cout=%b", A ,B, Cin, S, Cout);
+	$display("A=%d B=%d Cin=%b --> S=%d Cout=%b", A ,B, Cin, S, Cout);
 
 	$finish;
      end
