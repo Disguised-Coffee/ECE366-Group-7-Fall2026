@@ -1,6 +1,5 @@
 // in EDA, it should pop up normally.
 
-// These are weird.
 module fa_RCS_TB;
 
   reg [3:0] valA, valB;  
@@ -13,6 +12,7 @@ module fa_RCS_TB;
   // One FA for all tests. Like one object for all test cases.
   four_bit_RCA_RCS FA(.A(valA), .B(valB), .Cin(Cin), .S(sumO), .Sub(Sub), .Cout(Cout));
   
+  // think of these as function! Or as cs 251 test cases.
   task unsigned_FA_Test(input [3:0] in1, input [3:0] in2, input subtract);
     begin
       valA = in1;
@@ -21,6 +21,7 @@ module fa_RCS_TB;
       Cin = 0;
 
       // allow time for signal propagation...
+      // so that the waveform can properly show up.
       #2;
 
       if (subtract == 0) begin
@@ -39,7 +40,7 @@ module fa_RCS_TB;
 
   task signed_FA_Test(input signed [3:0] in1, input signed [3:0] in2, input subtract);
     begin
-      // cuz we wanted signed, we can do this 
+      // cuz we wanted signed representation, we can do this 
       // https://chipverify.com/verilog/verilog-conversion-functions
       valA = in1;
       valB = in2;
