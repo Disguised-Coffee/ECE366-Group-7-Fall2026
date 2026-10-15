@@ -1,9 +1,7 @@
 // pset 3: 16-bit prefix adder
 
 // The black square in Figure 3
-// Merges a high group (i) with the group right below it (j):
-//   G(i:j) = G(i) | (P(i) & G(j))
-//   P(i:j) = P(i) & P(j)
+// Merges a high group (i) with the group right below it (j)
 // Only 2-input AND/OR gates, as the assignment requires
 module prefix_cell (Gi, Pi, Gj, Pj, Go, Po);
   input  Gi, Pi, Gj, Pj;
