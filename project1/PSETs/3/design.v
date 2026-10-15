@@ -24,7 +24,7 @@ module prefix_level #(parameter SPAN = 1) (Gin, Pin, Gout, Pout);
   genvar j;
   generate
     for (j = 0; j < 16; j = j + 1) begin : pos
-      if ((j / SPAN) % 2 == 1) begin : cell
+      if ((j / SPAN) % 2 == 1) begin : merge
         // merge with the highest position of the block below
         prefix_cell c (
           .Gi(Gin[j]), .Pi(Pin[j]),
@@ -32,7 +32,7 @@ module prefix_level #(parameter SPAN = 1) (Gin, Pin, Gout, Pout);
           .Pj(Pin[(j / SPAN) * SPAN - 1]),
           .Go(Gout[j]), .Po(Pout[j])
         );
-      end else begin : pass
+      end else begin : bypass
         assign Gout[j] = Gin[j];
         assign Pout[j] = Pin[j];
       end
