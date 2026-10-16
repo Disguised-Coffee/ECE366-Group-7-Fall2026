@@ -105,7 +105,7 @@ module koggeStoneAdder (
           _buffer buffer_thing(.G(G[i]), .P(P[i]), .outP(line1_p[i]), .outG(line1_g[i]));
         end
         1 : begin
-          _grayBox gray(.G(G[i]), .P(P[i]), .Gprev(G[i - 1]), .Pprev(P[i - 1]), .outG(line1_g[i]));
+          _grayBox gray(.G(G[i]), .P(P[i]), .Gprev(G[i - 1]), .outG(line1_g[i]));
         end
         default: begin
           _blackBox blk(.G(G[i]), .P(P[i]), .Gprev(G[i - 1]), .Pprev(P[i - 1]), .outP(line1_p[i]), .outG(line1_g[i]));
@@ -126,7 +126,7 @@ module koggeStoneAdder (
           _buffer buffer_thing(.G(line1_g[i]), .P(line1_p[i]), .outP(line2_g[i]), .outG(line2_p[i]));
         end
         2, 3 : begin
-          _grayBox gray(.G(line1_g[i]), .P(line1_p[i]), .Gprev(line1_g[i - 2]), .Pprev(line1_p[i - 2]), .outG(line2_g[i]));
+          _grayBox gray(.G(line1_g[i]), .P(line1_p[i]), .Gprev(line1_g[i - 2]), .outG(line2_g[i]));
         end
         default:  
           _blackBox blk(.G(line1_g[i]), .P(line1_p[i]), .Gprev(line1_g[i - 1]), .Pprev(line1_p[i - 1]), .outP(line2_p[i]), .outG(line2_g[i]));
@@ -146,7 +146,7 @@ module koggeStoneAdder (
           _buffer buffer_thing(.G(line2_g[i]), .P(line2_p[i]), .outP(line3_p[i]), .outG(line3_p[i]));
         end
         4,5,6,7 : begin
-          _grayBox gray(.G(line2_g[i]), .P(line2_p[i]), .Gprev(line2_g[i - 4]), .Pprev(line2_p[i - 4]), .outG(line3_g[i]));
+          _grayBox gray(.G(line2_g[i]), .P(line2_p[i]), .Gprev(line2_g[i - 4]), .outG(line3_g[i]));
         end
         default: 
           _blackBox blk(.G(line2_g[i]), .P(line2_p[i]), .Gprev(line2_g[i - 4]), .Pprev(line2_p[i - 4]), .outP(line3_p[i]), .outG(line3_g[i]));
@@ -163,18 +163,18 @@ module koggeStoneAdder (
           assign line4_p[i] = line3_p[i];
         end
         4,5,6,7 : begin
-          _buffer buf(.G(line3_g[i]), .P(line3_p[i]), .outP(line4_p[i]), .outG(line4_g[i]));
+          _buffer buffer_thing(.G(line3_g[i]), .P(line3_p[i]), .outP(line4_p[i]), .outG(line4_g[i]));
         end
         default: 
-          _grayBox gray(.G(line3_g[i]), .P(line3_p[i]), .Gprev(line3_g[i - 8]), .Pprev(line3_p[i - 8]), .outG(line4_g[i + 1]));
+          _grayBox gray(.G(line3_g[i]), .P(line3_p[i]), .Gprev(line3_g[i - 8]), .outG(line4_g[i + 1]));
       endcase
     end
   endgenerate 
 
-  generate
-    // post propigate for sum
-    for (i = 0; i < 16 ; i = i+1) begin
-      _postCompute BLYAT()
+  // post propigate for sum
+  generate 
+    for (i = 1; i < 17 ; i = i+1) begin
+      _postCompute BLYAT(.G(line4_g[i - 1]), .P(line4_p[i]), .sum(S[i - 1]));
     end  
   endgenerate
 

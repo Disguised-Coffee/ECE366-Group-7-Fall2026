@@ -1,0 +1,116 @@
+// in EDA, it should pop up normally.
+
+module fa_RCS_TB;
+
+  reg [3:0] valA, valB;  
+  reg Cin, Sub;
+
+  // OUTPUTS CANNOT BE REGISTERS!!!
+  wire [3:0] sumO;
+  wire Cout;
+
+  // One FA for all tests. Like one object for all test cases.
+  four_bit_RCA_RCS FA(.A(valA), .B(valB), .Cin(Cin), .S(sumO), .Sub(Sub), .Cout(Cout));
+  
+  // think of these as function! Or as cs 251 test cases.
+  task unsigned_FA_Test(input [3:0] in1, input [3:0] in2, input subtract);
+    begin
+      valA = in1;
+      valB = in2;
+      Sub = subtract;
+      Cin = 0;
+
+      // allow time for signal propagation...
+      // so that the waveform can properly show up.
+      #2;
+
+      if (subtract == 0) begin
+        if(sumO == in1 + in2)
+          $display("\t[PASS] Adding %d + %d = %d", in1, in2, sumO);
+        else
+          $display("\t[FAIL] Adding %d + %d = %d", in1, in2, sumO);
+      end else begin;
+        if(sumO == in1 - in2)
+          $display("\t[PASS] Subtracting %d - %d = %d", in1, in2, sumO);
+        else
+          $display("\t[FAIL] Subtracting %d - %d = %d", in1, in2, sumO);
+      end
+    end
+  endtask
+
+  task signed_FA_Test(input signed [3:0] in1, input signed [3:0] in2, input subtract);
+    begin
+      // cuz we wanted signed representation, we can do this 
+      // https://chipverify.com/verilog/verilog-conversion-functions
+      valA = in1;
+      valB = in2;
+      Sub = subtract;
+
+      // allow time for signal propagation...
+      #2;
+
+      if (subtract == 0) begin
+        if($signed(sumO) == in1 + in2)
+          $display("\t[PASS] Signed Adding %d + %d = %d", in1, in2, $signed(sumO));
+        else
+          $display("\t[FAIL] Signed Adding %d + %d = %d", in1, in2, $signed(sumO));
+      end else begin
+        if(sumO == in1 - in2)
+          $display("\t[PASS] Signed Subtracting %d - %d = %d", in1, in2, $signed(sumO));
+        else
+          $display("\t[FAIL] Signed Subtracting %d - %d = %d", in1, in2, $signed(sumO));
+      end
+    end
+  endtask
+
+  initial begin
+    $dumpfile("dump.vcd"); $dumpvars;
+
+    valA <= 4'sd2;
+    valB <= 4'sd4;
+    Cin <= 0;
+    Sub <= 0;
+    
+
+    #2
+    
+    // unsigned adds
+    $display("----------------------\nCase One: Unsigned Addition\n");
+    unsigned_FA_Test(3, 2 , 0);
+    $display("Carry out: %d", Cout);
+
+    // unsigned subs
+    $display("----------------------\nCase Two: Unsigned Subtraction\n");
+    unsigned_FA_Test(3, 2 , 1);
+
+    // signed adds w/negative op
+    $display("----------------------\nCase Three: Signed Addition with negatives\n");
+    signed_FA_Test(3, -2 , 0);
+    signed_FA_Test(-3, 2 , 0);
+
+    // signed subs w/ negative op
+    $display("----------------------\nCase Four: Signed Subtraction with negatives\n");
+    signed_FA_Test(3, -6 , 1);
+    signed_FA_Test(-3, 2 , 1);
+
+    // case with produced carry-out (ie: overflow)
+    $display("----------------------\nCase Five: Propagated carry-out\n");
+    $display(">>> Case with NO carry-out");
+    unsigned_FA_Test(1, 1 , 0);
+    $display("\tCarry out: %b", Cout);
+    
+    
+    $display(">>> Case with carry-out");
+    unsigned_FA_Test(15, 2 , 0);
+    
+    
+    $display("\tCarry out: %b", Cout);
+    
+    // last waveform doesn't appear, so we need to reset the registers
+    valA = 0;
+    valB = 0;
+    $finish;
+    
+  end
+
+endmodule
