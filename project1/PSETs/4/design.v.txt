@@ -1,0 +1,16 @@
+Assign p[0]=A^B        //initial condition, combine all bits propagated, combine into generate
+Assign g[0] =A&B  
+
+
+Prefix Computation Example code: 
+for(i=0;i<16;i=i+1){
+  if(i>=4){
+assign P3[i]=P2[i]&P2[i-4];                            //There are sixteen iterations
+assign G3[i]=G2[i]|(P2[i]&G2[i-4]);
+  else{
+    assign P3[i]=P2[i];
+    assign G3[i]=G2[i];
+    
+
+Post Computation(sum all by collecting all propogates and carries):
+  Assign sum[i]=p[0][i]^C[i] 
