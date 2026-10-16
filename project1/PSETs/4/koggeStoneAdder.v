@@ -14,7 +14,7 @@ module _XOR_WHY (
   input b,
   output out
 );
-  assign _XOR_WHY = (a & ~b) | (~a & b) ;
+  assign out = (a & ~b) | (~a & b) ;
 endmodule
 
 
