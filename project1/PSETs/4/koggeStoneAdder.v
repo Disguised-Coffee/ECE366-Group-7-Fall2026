@@ -123,7 +123,7 @@ module koggeStoneAdder (
           assign line2_p[i] = line1_p[i];
         end
         1 : begin
-          _buffer buffer_thing(.G(line1_g[i]), .P(line1_p[i]), .outP(line2_g[i]), .outG(line2_p[i]));
+          _buffer buffer_thing(.G(line1_g[i]), .P(line1_p[i]), .outP(line2_p[i]), .outG(line2_g[i]));
         end
         2, 3 : begin
           _grayBox gray(.G(line1_g[i]), .P(line1_p[i]), .Gprev(line1_g[i - 2]), .outG(line2_g[i]));
@@ -143,7 +143,7 @@ module koggeStoneAdder (
           assign line3_p[i] = line2_p[i];
         end
         2,3 : begin
-          _buffer buffer_thing(.G(line2_g[i]), .P(line2_p[i]), .outP(line3_p[i]), .outG(line3_p[i]));
+          _buffer buffer_thing(.G(line2_g[i]), .P(line2_p[i]), .outP(line3_p[i]), .outG(line3_g[i]));
         end
         4,5,6,7 : begin
           _grayBox gray(.G(line2_g[i]), .P(line2_p[i]), .Gprev(line2_g[i - 4]), .outG(line3_g[i]));
