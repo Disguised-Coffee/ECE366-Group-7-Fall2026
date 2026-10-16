@@ -1,65 +1,32 @@
 // in EDA, it should pop up normally.
 
-module fa_RCS_TB;
+module fa_KGST_TB;
 
-  reg [3:0] valA, valB;  
+  reg [15:0] valA, valB;  
   reg Cin, Sub;
 
   // OUTPUTS CANNOT BE REGISTERS!!!
-  wire [3:0] sumO;
+  wire [15:0] sumO;
   wire Cout;
 
   // One FA for all tests. Like one object for all test cases.
-  four_bit_RCA_RCS FA(.A(valA), .B(valB), .Cin(Cin), .S(sumO), .Sub(Sub), .Cout(Cout));
+  koggeStoneAdder FA(.A(valA), .B(valB), .Cin(Cin), .S(sumO), .Cout(Cout));
   
   // think of these as function! Or as cs 251 test cases.
-  task unsigned_FA_Test(input [3:0] in1, input [3:0] in2, input subtract);
+  task unsigned_FA_Test(input [15:0] in1, input [15:0] in2, input _Cin);
     begin
       valA = in1;
       valB = in2;
-      Sub = subtract;
-      Cin = 0;
+      Cin = _Cin;
 
       // allow time for signal propagation...
       // so that the waveform can properly show up.
       #2;
 
-      if (subtract == 0) begin
-        if(sumO == in1 + in2)
-          $display("\t[PASS] Adding %d + %d = %d", in1, in2, sumO);
-        else
-          $display("\t[FAIL] Adding %d + %d = %d", in1, in2, sumO);
-      end else begin;
-        if(sumO == in1 - in2)
-          $display("\t[PASS] Subtracting %d - %d = %d", in1, in2, sumO);
-        else
-          $display("\t[FAIL] Subtracting %d - %d = %d", in1, in2, sumO);
-      end
-    end
-  endtask
-
-  task signed_FA_Test(input signed [3:0] in1, input signed [3:0] in2, input subtract);
-    begin
-      // cuz we wanted signed representation, we can do this 
-      // https://chipverify.com/verilog/verilog-conversion-functions
-      valA = in1;
-      valB = in2;
-      Sub = subtract;
-
-      // allow time for signal propagation...
-      #2;
-
-      if (subtract == 0) begin
-        if($signed(sumO) == in1 + in2)
+      if($signed(sumO) == in1 + in2)
           $display("\t[PASS] Signed Adding %d + %d = %d", in1, in2, $signed(sumO));
         else
           $display("\t[FAIL] Signed Adding %d + %d = %d", in1, in2, $signed(sumO));
-      end else begin
-        if(sumO == in1 - in2)
-          $display("\t[PASS] Signed Subtracting %d - %d = %d", in1, in2, $signed(sumO));
-        else
-          $display("\t[FAIL] Signed Subtracting %d - %d = %d", in1, in2, $signed(sumO));
-      end
     end
   endtask
 
@@ -85,13 +52,13 @@ module fa_RCS_TB;
 
     // signed adds w/negative op
     $display("----------------------\nCase Three: Signed Addition with negatives\n");
-    signed_FA_Test(3, -2 , 0);
-    signed_FA_Test(-3, 2 , 0);
+    unsigned_FA_Test(3, -2 , 0);
+    unsigned_FA_Test(-3, 2 , 0);
 
     // signed subs w/ negative op
     $display("----------------------\nCase Four: Signed Subtraction with negatives\n");
-    signed_FA_Test(3, -6 , 1);
-    signed_FA_Test(-3, 2 , 1);
+    unsigned_FA_Test(3, -6 , 1);
+    unsigned_FA_Test(-3, 2 , 1);
 
     // case with produced carry-out (ie: overflow)
     $display("----------------------\nCase Five: Propagated carry-out\n");
