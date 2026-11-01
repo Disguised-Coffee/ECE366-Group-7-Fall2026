@@ -19,3 +19,5 @@ Repository link:
 Get: https://dpetersanderson.github.io/index.html
 
 watch: https://www.youtube.com/watch?v=jzfzvmnFbdw
+
+also: https://courses.cs.vt.edu/cs2506/Fall2014/Notes/L04.MIPSAssemblyOverview.pdf
