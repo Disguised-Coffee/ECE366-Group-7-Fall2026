@@ -1,11 +1,8 @@
 # Project 2
 
+THIS CALCULATES THE `n`th number in the fibonacci sequence, using the combinatorial definition from [https://stackoverflow.com/questions/1451170/in-the-fibonacci-sequence-is-fib0-0-or-1](https://stackoverflow.com/questions/1451170/in-the-fibonacci-sequence-is-fib0-0-or-1)
+
 --------
-
-
-```
-A README file containing the name of the team members and their NetIDs, contribution of each team member, GitHub Link, and how we can run the MIPS program to get the nth Fibonacci number for a given n.
-```
 
 ## 💞 Contributions
 
@@ -32,7 +29,7 @@ A README file containing the name of the team members and their NetIDs, contribu
 
 4. Run the program with `F5` or with `Run > Go`. The results can be found in the `Run I/O` tab.
 
-5. To change the 
+5. To change the number to calculate in the sequence, adjust line 10 of `main.asm`, where n is referred to as 5.
 
 
 ## Misc (not releated to submission)
@@ -40,3 +37,8 @@ A README file containing the name of the team members and their NetIDs, contribu
 watch: https://www.youtube.com/watch?v=jzfzvmnFbdw
 
 also: https://courses.cs.vt.edu/cs2506/Fall2014/Notes/L04.MIPSAssemblyOverview.pdf
+
+submission prompt:
+```
+A README file containing the name of the team members and their NetIDs, contribution of each team member, GitHub Link, and how we can run the MIPS program to get the nth Fibonacci number for a given n.
+```
