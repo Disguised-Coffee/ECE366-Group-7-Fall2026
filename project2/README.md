@@ -2,9 +2,9 @@
 
 THIS CALCULATES THE `n`th number in the fibonacci sequence, using the combinatorial definition from [https://stackoverflow.com/questions/1451170/in-the-fibonacci-sequence-is-fib0-0-or-1](https://stackoverflow.com/questions/1451170/in-the-fibonacci-sequence-is-fib0-0-or-1) and checks if it is odd. Currently, the entire program can be callable from `isFibonacci` with the input parameter as the number to find in the sequence and if it's odd.
 
---------
+This project is a part of [https://github.com/Disguised-Coffee/ECE366-Group-7-Fall2026](https://github.com/Disguised-Coffee/ECE366-Group-7-Fall2026)
 
-## 
+--------
 
 ## 💞 Contributions
 
