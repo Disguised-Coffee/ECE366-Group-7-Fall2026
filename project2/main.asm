@@ -46,10 +46,23 @@ main:
   li $v0, 1			  # Load system call code 1
   move $a0, $s2
   syscall             # Execute the print operation
-
+  
   # Exit program cleanly
   li $v0, 10          # Service code 10 is exit
   syscall
+
+isFibonacciOdd:  
+  jal fibonacci # call function. pushes instruction address into $ra which we pop later...
+  
+  move $s1, $a0 # s1 stores our new value
+
+  jal isodd # call function, result comes back in $v0
+  
+  # move the result back into the return register as this is a function
+  move $v0, $a0
+  
+  # return cuz we got nothing good to do
+  jr $ra
  
 # Function
 fibonacci:
