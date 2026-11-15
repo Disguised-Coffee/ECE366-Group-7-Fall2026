@@ -2,5 +2,5 @@
 
 | Project | Name | is Done? |
 | :---     | :---:    | ---:     |
-| 1     | []   | ❌    |
-| 2     | []   | ❌    |
+| 1     | Verilog: Full-adder PSET   | ✅    |
+| 2     | MIPS: Designing a Fibonacci Odd-Number Detection Program   | ✅    |
