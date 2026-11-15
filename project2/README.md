@@ -33,7 +33,7 @@ THIS CALCULATES THE `n`th number in the fibonacci sequence, using the combinator
 
 3. Assemble the program with `F3` (windows) or with `Run > Assemble`
 
-4. Run the program with `F5` or with `Run > Go`. The results can be found in the `Run I/O` tab.
+4. Run the program with `F5` or with `Run > Go`. The results can be found in the `Run I/O` tab within MARS.
 
 5. To change the number to calculate in the sequence and check as odd, adjust line 4 of `main.asm`, where n is currently referred to as 5. This value will be used in `main`.
 
